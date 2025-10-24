@@ -25,6 +25,11 @@ public class CustomObjectFilterFunctional {
         courses.stream()
                 .filter(course -> course.name().contains("Spring"))
                 .forEach(System.out::println);
+
+        // print length of the course names
+        courses.stream()
+                .map(course -> course.name().length())
+                .forEach(System.out::println);
     }
 }
 

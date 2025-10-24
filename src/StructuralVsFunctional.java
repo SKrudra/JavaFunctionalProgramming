@@ -6,11 +6,22 @@ public class StructuralVsFunctional {
 
         final List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
-        printStructural(numbers);
-        printFunctional(numbers);
+//        printStructural(numbers);
+//        printFunctional(numbers);
 
-        printEvenNumbersStructural(numbers);
-        printEvenNumbersFunctional(numbers);
+//        printEvenNumbersStructural(numbers);
+//        printEvenNumbersFunctional(numbers);
+        printSquareOfOddNumbers(numbers);
+    }
+
+    private static void printSquareOfOddNumbers(List<Integer> numbers) {
+        numbers.stream()
+                .filter(n -> n % 2 != 0)
+                .map(n -> n * n) // mapping lambda; changes the values and return a new stream/collection
+                .forEach(System.out::println);
+
+        // original list is unchanged
+        numbers.forEach(System.out::println);
     }
 
     private static void printEvenNumbersFunctional(List<Integer> numbers) {
