@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class CustomObjectFilterFunctional {
@@ -29,6 +30,11 @@ public class CustomObjectFilterFunctional {
         // print length of the course names
         courses.stream()
                 .map(course -> course.name().length())
+                .forEach(System.out::println);
+
+        // sorted
+        courses.stream()
+                .sorted(Comparator.comparing(Course::name))
                 .forEach(System.out::println);
     }
 }
