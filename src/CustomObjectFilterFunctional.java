@@ -36,6 +36,16 @@ public class CustomObjectFilterFunctional {
         courses.stream()
                 .sorted(Comparator.comparing(Course::name))
                 .forEach(System.out::println);
+
+        // reverse order
+        courses.stream()
+                .sorted(Comparator.comparing(Course::name).reversed())
+                .forEach(System.out::println);
+
+        // custom order: based on the length of the name of the course
+        courses.stream()
+                .sorted(Comparator.comparing(c -> c.name().length()))
+                .forEach(System.out::println);
     }
 }
 

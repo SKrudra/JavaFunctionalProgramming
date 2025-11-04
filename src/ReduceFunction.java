@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class ReduceFunction {
@@ -43,5 +44,10 @@ public class ReduceFunction {
         // sorted
         numbers.stream().sorted().forEach(System.out::println);
 
+        // natural order
+        numbers.stream().sorted(Comparator.naturalOrder()).forEach(System.out::println);
+
+        // reverse order
+        numbers.stream().sorted(Comparator.reverseOrder()).forEach(System.out::println);
     }
 }
