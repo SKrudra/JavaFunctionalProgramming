@@ -13,6 +13,7 @@ public class CustomObjectFilterFunctional {
         courses.add(new Course("C++ Programming", 4));
         courses.add(new Course("C# Programming", 5));
         courses.add(new Course("Spring", 4));
+        courses.add(new Course("Spring", 5));
         courses.add(new Course("Spring Boot", 5));
 
         // print all the courses
@@ -59,6 +60,16 @@ public class CustomObjectFilterFunctional {
 
         // noneMatch
         System.out.println("No course with rating greater than 4 " + courses.stream().noneMatch(greaterThan4Ratings));
+
+        // sorted on multiple fields
+        courses.stream()
+                .sorted(Comparator.comparing(Course::ratings).reversed().thenComparing(Course::name))
+                .forEach(System.out::println);
+
+        // comparing using primitive values
+        courses.stream().
+                sorted(Comparator.comparing(Course::name).thenComparingInt(Course::ratings).reversed())
+                .forEach(System.out::println);
     }
 
 
@@ -69,6 +80,6 @@ record Course(String name, int ratings) {
 
     @Override
     public String toString() {
-        return name;
+        return name + " " + ratings;
     }
 }
