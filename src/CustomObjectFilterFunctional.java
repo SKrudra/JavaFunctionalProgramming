@@ -8,10 +8,10 @@ public class CustomObjectFilterFunctional {
     public static void main(String[] args) {
 
         List<Course> courses = new ArrayList<>();
-        courses.add(new Course("Java Programming", 4));
         courses.add(new Course("C Programming", 5));
         courses.add(new Course("C++ Programming", 4));
         courses.add(new Course("C# Programming", 5));
+        courses.add(new Course("Java Programming", 4));
         courses.add(new Course("Spring", 4));
         courses.add(new Course("Spring", 5));
         courses.add(new Course("Spring Boot", 5));
@@ -69,6 +69,41 @@ public class CustomObjectFilterFunctional {
         // comparing using primitive values
         courses.stream().
                 sorted(Comparator.comparing(Course::name).thenComparingInt(Course::ratings).reversed())
+                .forEach(System.out::println);
+
+        // limit
+        System.out.println("--limit--");
+        courses.stream()
+                .sorted(Comparator.comparing(Course::ratings).reversed())
+                .limit(3) // top three
+                .forEach(System.out::println);
+
+        // skip
+        System.out.println("--skip--");
+        courses.stream()
+                .sorted(Comparator.comparing(Course::ratings).reversed())
+                .skip(1) // skip first; second onwards
+                .forEach(System.out::println);
+
+        System.out.println("--skip-limit--");
+        courses.stream()
+                .sorted(Comparator.comparing(Course::ratings).reversed())
+                .skip(1)
+                .limit(1) // second highest
+                .forEach(System.out::println);
+
+        // takeWhile
+        System.out.println("--takeWhile--");
+        courses.stream()
+                // take the elements as long as the condition is true, discard the rest
+                .takeWhile(course -> course.name().startsWith("C"))
+                .forEach(System.out::println);
+
+        // dropWhile
+        System.out.println("--dropWhile--");
+        courses.stream()
+                // ignore the elements as long as the condition is true, take the remaining ones
+                .dropWhile(course -> course.name().startsWith("C"))
                 .forEach(System.out::println);
     }
 
