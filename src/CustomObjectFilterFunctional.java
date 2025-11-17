@@ -105,6 +105,34 @@ public class CustomObjectFilterFunctional {
                 // ignore the elements as long as the condition is true, take the remaining ones
                 .dropWhile(course -> course.name().startsWith("C"))
                 .forEach(System.out::println);
+
+        // min
+        System.out.println("--min--");
+        System.out.println(courses.stream()
+                .min(Comparator.comparing(Course::ratings)));
+
+        // max
+        System.out.println("--max--");
+        System.out.println(courses.stream()
+                .max(Comparator.comparing(Course::ratings)));
+
+        // Optional default value
+        System.out.println("--Optional default value--");
+        System.out.println(courses.stream()
+                .filter(course -> course.ratings() < 4)
+                .max(Comparator.comparing(Course::ratings))
+                .orElse(new Course("Hello World!", 0)));
+
+        System.out.println("--findFirst--");
+        System.out.println(courses.stream()
+                .filter(course -> course.name().startsWith("C"))
+                .findFirst());
+
+        // findAny
+        System.out.println("--findAny--");
+        System.out.println(courses.stream()
+                .filter(course -> course.name().startsWith("S"))
+                .findAny());
     }
 
 
