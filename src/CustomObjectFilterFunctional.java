@@ -2,19 +2,20 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class CustomObjectFilterFunctional {
 
     public static void main(String[] args) {
 
         List<Course> courses = new ArrayList<>();
-        courses.add(new Course("C Programming", 5));
-        courses.add(new Course("C++ Programming", 4));
-        courses.add(new Course("C# Programming", 5));
-        courses.add(new Course("Java Programming", 4));
-        courses.add(new Course("Spring", 4));
-        courses.add(new Course("Spring", 5));
-        courses.add(new Course("Spring Boot", 5));
+        courses.add(new Course("C Programming", 5, "Language"));
+        courses.add(new Course("C++ Programming", 4, "Language"));
+        courses.add(new Course("C# Programming", 5, "Language"));
+        courses.add(new Course("Java Programming", 4, "Language"));
+        courses.add(new Course("Spring", 4, "Framework"));
+        courses.add(new Course("Spring", 5, "Framework"));
+        courses.add(new Course("Spring Boot", 5, "Framework"));
 
         // print all the courses
         courses.forEach(System.out::println);
@@ -121,7 +122,7 @@ public class CustomObjectFilterFunctional {
         System.out.println(courses.stream()
                 .filter(course -> course.ratings() < 4)
                 .max(Comparator.comparing(Course::ratings))
-                .orElse(new Course("Hello World!", 0)));
+                .orElse(new Course("Hello World!", 0, "New")));
 
         System.out.println("--findFirst--");
         System.out.println(courses.stream()
@@ -133,16 +134,36 @@ public class CustomObjectFilterFunctional {
         System.out.println(courses.stream()
                 .filter(course -> course.name().startsWith("S"))
                 .findAny());
+
+        // grouping by
+        System.out.println("--groupingBy--");
+        System.out.println(courses.stream()
+                .collect(Collectors.groupingBy(Course::ratings)));
+
+        // grouping by with count
+        System.out.println("--groupingBy & counting--");
+        System.out.println(courses.stream()
+                .collect(Collectors.groupingBy(Course::ratings, Collectors.counting())));
+
+        System.out.println("--groupingBy & maxBy--");
+        System.out.println(courses.stream()
+                .collect(Collectors.groupingBy(Course::category,
+                        Collectors.maxBy(Comparator.comparingInt(Course::ratings)))));
+
+        System.out.println("--groupingBy & mapping--");
+        System.out.println(courses.stream()
+                .collect(Collectors.groupingBy(Course::category,
+                        Collectors.mapping(Course::name, Collectors.toList()))));
     }
 
 
 }
 
 
-record Course(String name, int ratings) {
+record Course(String name, int ratings, String category) {
 
     @Override
     public String toString() {
-        return name + " " + ratings;
+        return name + " " + ratings + " " + category;
     }
 }
