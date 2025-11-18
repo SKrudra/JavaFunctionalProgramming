@@ -1,0 +1,3 @@
+This is a file
+This file will be read using functional programing in Java
+Let's read this file
