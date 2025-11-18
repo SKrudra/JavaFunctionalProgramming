@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -154,6 +155,21 @@ public class CustomObjectFilterFunctional {
         System.out.println(courses.stream()
                 .collect(Collectors.groupingBy(Course::category,
                         Collectors.mapping(Course::name, Collectors.toList()))));
+
+        // joining
+        System.out.println("--joining--");
+        System.out.println(courses.stream()
+                .map(Course::name).distinct().collect(Collectors.joining(", ")));
+
+
+        // flatMap
+        System.out.println("--flatMap--");
+        System.out.println(courses.stream()
+                .map(Course::name)
+                .map(s -> s.split(""))
+                .flatMap(Arrays::stream)
+                .distinct()
+                .toList());
     }
 
 
